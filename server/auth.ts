@@ -73,6 +73,43 @@ export const authenticatePlatformUser = async (
   }
 };
 
+// THIS IS FOR TEST
+// export const authenticatePlatformUser = async (
+//   req: AuthenticatedPlatformRequest,
+//   res: Response,
+//   next: NextFunction
+// ): Promise<void> => {
+//   try {
+//     // Allow unauthenticated access to login endpoint
+//     if (req.path === '/api/platform/auth/login') {
+//       return next();
+//     }
+
+//     const authHeader = req.headers.authorization;
+//     const token = authHeader && authHeader.startsWith('Bearer ') 
+//       ? authHeader.substring(7) 
+//       : req.cookies?.platformToken;
+
+//     if (!token) {
+//       res.status(401).json({ message: 'Access token required' });
+//       return;
+//     }
+
+//     const decoded = verifyToken(token);
+//     const user = await platformStorage.getPlatformUser(decoded.userId);
+
+//     if (!user || !user.isActive) {
+//       res.status(401).json({ message: 'Invalid or inactive user' });
+//       return;
+//     }
+
+//     req.user = user;
+//     next();
+//   } catch (error) {
+//     res.status(401).json({ message: 'Invalid token' });
+//   }
+// };
+
 // Tenant-level authentication (for tenant users)
 export const authenticateTenantUser = async (
   req: AuthenticatedTenantRequest,
